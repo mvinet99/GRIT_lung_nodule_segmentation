@@ -1,4 +1,4 @@
-# 2D V-Net for LIDC lung-nodule segmentation
+# Segmentation of ground glass regions of lung nodules in CT images
 
 ```
 common.py                  shared I/O, resampling, HU clipping, cropping (used by every step)
@@ -12,7 +12,9 @@ vnet2d.py / dataset.py     model / dataset, shift augmentation, balanced sampler
 run_pipeline.sh            the three steps with example arguments
 ```
 
-## Order to run
+## Run Inference
+
+Download the model weights: 
 
 ```bash
 pip install -r requirements.txt
@@ -34,7 +36,7 @@ python 03_predict_postprocess.py --xlsx $RUN/val_paths.csv --ckpt $RUN/best.pt -
 #    later, the same command on your separate held-out test set
 ```
 
-## What each step does
+## Explanation of Project Steps
 
 **Preprocessing**
 - Reorients to LPS so numpy axis 0 is always axial, then resamples to 1×1×1 mm. The CT uses linear interpolation. Masks use linear interpolation followed by a ≥0.5 threshold, with nearest-neighbour as a fallback for tiny nodules.
